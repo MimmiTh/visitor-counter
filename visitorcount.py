@@ -9,6 +9,6 @@ def visitcount():
 		file = open("visitors.txt", 'w+')
 		nr = int(file.read()) + 1;
 		file.write(nr)
-		
+
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
