@@ -6,9 +6,19 @@ app = Flask(__name__)
 def visitcount():
 	lock = LockFile("visitors.txt")
 	with lock:
-		file = open("visitors.txt", 'w+')
-		nr = int(file.read()) + 1;
-		file.write(nr)
+		with open("visitors.txt", "r+") as f:
+			fileContent = f.read()
+
+			if fileContent == "":
+				count = 1
+			else:
+				count = int(fileContent) + 1
+			
+			f.seek(0)
+			f.write(str(count))
+			f.truncate()
+			
+			return str(count)
 
 if __name__ == '__main__':
     app.run(debug=True)
